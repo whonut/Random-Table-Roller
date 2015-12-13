@@ -1,4 +1,5 @@
 import csv
+from itertools import chain
 
 
 def load_table(filepath, headers=False):
@@ -15,7 +16,9 @@ def load_table(filepath, headers=False):
     to roll in order to 'bring about' the associated event in the same row
     of the second column. Ranges should be specified with dashes e.g.
     a roll of 1 to 10 inclusive would be written as '1-10'. None of the
-    intervals should overlap.'''
+    intervals should overlap. If there is a gap in the table i.e. a roll
+    within the bounds of the table which is not associated with an event, an
+    IOError is raised.'''
 
     table = {}
     with open(filepath, newline='') as table_file:
@@ -35,5 +38,13 @@ def load_table(filepath, headers=False):
                 # A single roll has been specified for this table item.
                 roll_num = int(roll)
                 table[range(roll_num, roll_num+1)] = event
+
+    # Check if there is a gap in the table by comparing its keys to a range.
+    rolls_in_table = chain(table.keys())
+    max_in_table = max(rolls_in_table)
+    min_in_table = min(rolls_in_table)
+    gap = list(rolls_in_table) != list(range(min_in_table, max_in_table+1))
+    if gap:
+        raise IOError('There is a gap in the table "{}"'.format(filepath))
 
     return table
