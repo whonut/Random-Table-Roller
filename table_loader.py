@@ -5,7 +5,7 @@ def load_table(filepath, headers=False):
     '''Return a dict representing a roll table loaded from filepath.
 
     Loads a roll table from the CSV file at filepath into a dict whose keys
-    are tuples specifying the range of rolls (min, max) associated with the
+    are ranges containing the range of rolls (min, max) associated with the
     event specified in that key's value (a string describing the event).
     If headers is True, then it is assumed that the first row of the file
     contains some descriptive headers and the row is ignored. It defaults
@@ -30,10 +30,10 @@ def load_table(filepath, headers=False):
                 # A range of rolls has been specified for this table item.
                 min_roll = int(roll[:roll.find("-")])
                 max_roll = int(roll[roll.find("-")+1:])
-                table[(min_roll, max_roll)] = event
+                table[range(min_roll, max_roll+1)] = event
             else:
                 # A single roll has been specified for this table item.
                 roll_num = int(roll)
-                table[(roll_num, roll_num)] = event
+                table[range(roll_num, roll_num+1)] = event
 
     return table
