@@ -40,10 +40,10 @@ def load_table(filepath, headers=False):
                 table[range(roll_num, roll_num+1)] = event
 
     # Check if there is a gap in the table by comparing its keys to a range.
-    rolls_in_table = chain(table.keys())
+    rolls_in_table = sorted(list(chain(*table.keys())))
     max_in_table = max(rolls_in_table)
     min_in_table = min(rolls_in_table)
-    gap = list(rolls_in_table) != list(range(min_in_table, max_in_table+1))
+    gap = rolls_in_table != list(range(min_in_table, max_in_table+1))
     if gap:
         raise IOError('There is a gap in the table "{}"'.format(filepath))
 
