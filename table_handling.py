@@ -1,6 +1,6 @@
 import csv
 from random import randint
-from itertools import chain
+from itertools import chain, product
 
 
 class TableFormatError(Exception):
@@ -53,6 +53,13 @@ def load_table(filepath):
                 # A single roll has been specified for this table item.
                 roll_num = int(roll)
                 table[range(roll_num, roll_num+1)] = event
+
+    # Check if any of the roll ranges overlap.
+    for p in product(table.keys(), repeat=2):
+        first_in_second = (p[0].start in p[1]) or ((p[0].stop - 1) in p[1])
+        second_in_first = (p[1].start in p[0]) or ((p[0].stop - 1) in p[0])
+        if first_in_second or second_in_first:
+            raise TableFormatError("Roll ranges cannot overlap.")
 
     # Check if there is a gap in the table by comparing its keys to a range.
     rolls_in_table = sorted(list(chain(*table.keys())))
