@@ -3,15 +3,14 @@ from random import randint
 from itertools import chain
 
 
-def load_table(filepath, headers=False):
+def load_table(filepath):
     '''Return a dict representing a roll table loaded from filepath.
 
     Loads a roll table from the CSV file at filepath into a dict whose keys
     are ranges containing the range of rolls (min, max) associated with the
     event specified in that key's value (a string describing the event).
-    If headers is True, then it is assumed that the first row of the file
-    contains some descriptive headers and the row is ignored. It defaults
-    to False.
+    It is assumed that the first row of the file contains some descriptive
+    headers e.g. "Roll,Event" and the row is ignored.
 
     The first column of the CSV should be the numbers or ranges of numbers
     to roll in order to 'bring about' the associated event in the same row
@@ -25,8 +24,8 @@ def load_table(filepath, headers=False):
     with open(filepath, newline='') as table_file:
         table_reader = csv.reader(table_file)
         for row in table_reader:
-            if headers and table_reader.line_num == 1:
-                # Ignore the first line if headers is True
+            if table_reader.line_num == 1:
+                # Ignore the first line.
                 continue
             roll = row[0]
             event = row[1]
