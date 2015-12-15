@@ -49,11 +49,21 @@ def load_table(filepath):
                 # A range of rolls has been specified for this table item.
                 min_roll = int(roll[:roll.find("-")])
                 max_roll = int(roll[roll.find("-")+1:])
-                table[range(min_roll, max_roll+1)] = event
+                r = range(min_roll, max_roll+1)
+                if r not in table:
+                    table[r] = event
+                else:
+                    # Don't allow repeated roll ranges
+                    raise TableFormatError("Roll ranges must be unique.")
             else:
                 # A single roll has been specified for this table item.
                 roll_num = int(roll)
-                table[range(roll_num, roll_num+1)] = event
+                r = range(roll_num, roll_num+1)
+                if r not in table:
+                    table[r] = event
+                else:
+                    # Don't allow repeated roll ranges
+                    raise TableFormatError("Roll ranges must be unique.")
 
     # Check if any of the roll ranges overlap.
     for p in product(table.keys(), repeat=2):
