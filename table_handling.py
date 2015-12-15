@@ -24,9 +24,8 @@ def load_table(filepath):
     to roll in order to 'bring about' the associated event in the same row
     of the second column. Ranges should be specified with dashes e.g.
     a roll of 1 to 10 inclusive would be written as '1-10'. None of the
-    intervals should overlap. If there is a gap in the table i.e. a roll
-    within the bounds of the table which is not associated with an event, an
-    IOError is raised.'''
+    intervals should overlap. If there is an issue with the formatting of the
+    CSV file, then TableFormatError is raised.'''
 
     table = {}
     with open(filepath, newline='') as table_file:
