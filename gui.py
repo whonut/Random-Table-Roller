@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import font
-from table_handling import load_table, roll_against
+from tkinter import messagebox as mbox
+from csv import Error as csvError
+from table_handling import load_table, roll_against, TableFormatError
 
 
 class TableRollerGUI:
@@ -67,7 +69,20 @@ class TableRollerGUI:
         filenames = filedialog.askopenfilenames(**file_opts)
         for f in filenames:
             table_name = f[f.rfind('/')+1:f.rfind('.csv')]
-            self.tables[table_name] = load_table(f)
+            try:
+                self.tables[table_name] = load_table(f)
+            except TableFormatError as err:
+                mbox.showwarning("Open file",
+                                 "Bad formatting: {}".format(err.err_msg))
+                return
+            except csvError:
+                mbox.showwarning("Open file",
+                                 "Cannot open file: Bad CSV input.")
+                return
+            except FileNotFoundError:
+                mbox.showwarning("Open file",
+                                 "Cannot open file: File not found.")
+                return
             # Update the options in self.table_menu.
             new_comm = tk._setit(self.chosen_table, table_name)
             self.table_menu['menu'].add_command(label=table_name,
