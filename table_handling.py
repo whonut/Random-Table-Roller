@@ -3,6 +3,14 @@ from random import randint
 from itertools import chain
 
 
+class TableFormatError(Exception):
+    '''Raised when the user tries to load an improperly formatted table
+       file.'''
+
+    def __init__(self, msg):
+        self.err_msg = msg
+
+
 def load_table(filepath, headers=False):
     '''Return a dict representing a roll table loaded from filepath.
 
