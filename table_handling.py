@@ -31,7 +31,12 @@ def load_table(filepath, headers=False):
 
     table = {}
     with open(filepath, newline='') as table_file:
-        table_reader = csv.reader(table_file)
+        try:
+            table_reader = csv.reader(table_file, strict=True)
+        except csv.Error as err:
+            # Bad CSV input.
+            raise TableFormatError("Bad CSV input") from err
+
         for row in table_reader:
             if headers and table_reader.line_num == 1:
                 # Ignore the first line if headers is True
