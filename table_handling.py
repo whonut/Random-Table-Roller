@@ -17,8 +17,8 @@ def load_table(filepath):
     Loads a roll table from the CSV file at filepath into a dict whose keys
     are ranges containing the range of rolls (min, max) associated with the
     event specified in that key's value (a string describing the event).
-    It is assumed that the first row of the file contains some descriptive
-    headers and the row is ignored.
+    The first row of the file should contain some descriptive headers and
+    should begins with a '%'. If this is the case, then the row is ignored.
 
     The first column of the CSV should be the numbers or ranges of numbers
     to roll in order to 'bring about' the associated event in the same row
@@ -35,8 +35,13 @@ def load_table(filepath):
                 # Tables should only have two columns.
                 raise TableFormatError("Tables should only have two columns.")
             if table_reader.line_num == 1:
-                # Ignore the first line.
-                continue
+                # Check that the header line begins with a '%'
+                if row[0][0] == "%":
+                    # Ignore the first line.
+                    continue
+                else:
+                    raise TableFormatError(("The header (first) line should "
+                                            "start with a '%'"))
             roll = row[0]
             event = row[1]
             if row[0].find("-") != -1:
