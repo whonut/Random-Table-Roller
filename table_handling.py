@@ -38,6 +38,9 @@ def load_table(filepath, headers=False):
             raise TableFormatError("Bad CSV input") from err
 
         for row in table_reader:
+            if len(row) != 2:
+                # Tables should only have two columns.
+                raise TableFormatError("Tables should only have two columns.")
             if headers and table_reader.line_num == 1:
                 # Ignore the first line if headers is True
                 continue
