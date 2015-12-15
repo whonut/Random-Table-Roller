@@ -57,7 +57,7 @@ def load_table(filepath):
     gap = rolls_in_table != list(range(min_in_table, max_in_table+1))
     if gap:
         filename = filepath[filepath.rfind("/")+1:]
-        err_msg = 'There is a gap in the table: {}'.format(filename)
+        err_msg = 'There is a gap in the table.'.format(filename)
         raise TableFormatError(err_msg)
 
     return table
