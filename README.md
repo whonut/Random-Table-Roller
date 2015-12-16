@@ -4,6 +4,7 @@ A graphical application for rolling against custom random event tables. Meant fo
 ## TODO
 - [x] Read tables from CSV files
 - [x] Roll against tables generated from CSV files
-- [ ] Graphical user interface
-- [ ] Load multiple tables
+- [x] Graphical user interface
+- [x] Load multiple tables
 - [ ] Tutorial/documentation
+- [ ] Command line interface
