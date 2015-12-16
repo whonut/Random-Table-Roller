@@ -8,3 +8,6 @@ A graphical application for rolling against custom random event tables. Meant fo
 - [x] Load multiple tables
 - [ ] Tutorial/documentation
 - [ ] Command line interface
+
+## Credits
+- Icon by [iconcubic](http://iconcubic.deviantart.com/).
