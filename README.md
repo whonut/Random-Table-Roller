@@ -7,9 +7,20 @@ A graphical application for rolling against custom random event tables. Meant fo
 - [x] Graphical user interface
 - [x] Load multiple tables
 - [x] Usage
+- [ ] Windows executable
 - [ ] Command line interface
 
+## Installation
+
+The standalone app and source code can be downloaded on the
+[Releases](https://github.com/whonut/Random-Table-Roller/releases/) page. It is
+possible to build the app from source yourself using [py2app](https://pythonhosted.org/py2app/).
+(It might be possible to build a Windows executable with [py2exe](https://pypi.python.org/pypi/py2exe/),
+I haven't tried).
+
 ## Usage
+
+### Interface 
 
 The standalone app can be opened as any other. Table files can be loaded by pressing
 the "Load tables..." button. A table can then be selected from the dropdown. Pressing
