@@ -103,6 +103,6 @@ class TableRollerGUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.title("D&D Random Table Roller")
+    root.title("Random Table Roller")
     app = TableRollerGUI(root)
     root.mainloop()
